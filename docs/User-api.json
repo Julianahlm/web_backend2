@@ -1,0 +1,144 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title":"API",
+        "description": "API web_backend",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/vl/users": {
+            "post": {
+                "description": "Register a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "John Doe": {
+                                    "description": "Register user John Doe",
+                                    "value":{
+                                        "name": "John Doe",
+                                        "email": "John.Doe@example.com",
+                                        "password": "iniRahasia",
+                                        "password_confirmation": "iniRahasia"
+                                    }
+                                }
+                            },
+                            "schema":{
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name":{
+                                        "type":"string" 
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "Register user successfully",
+                        "content": {
+                            "application/json":{
+                                "example":{
+                                    "success":{
+                                        "description": "Register user successfully",
+                                        "value":{
+                                            "data":{
+                                                "id": "1",
+                                                "name": "John Doe",
+                                                "email": "John.Doe@example.com"
+                                            }
+                                        }
+                                    }
+                                },
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "email":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "error":{
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Validation error",
+                        "content": {
+                            "application/json":{
+                                "examples": {
+                                    "Validation error":{
+                                        "description": "Validation error",
+                                        "value":{
+                                            "errors":{
+                                                "name": "the name field is required",
+                                                "email":[
+                                                    "the email field is required",
+                                                    "the email has already been taken"
+                                                ],
+                                                "password":[
+                                                    "the password field is required",
+                                                    "password must be at least 8 characters"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+            }
+        },
+        "api/vl/users/login": {
+            "post": {
+                "description": "Login user"
+            }
+        },
+        "api/vl/users/profile": {
+            "Get": {
+                "description": "Get user profile"
+            },
+            "paths": {
+                "description":"update user profile"
+            }
+        },
+        "api/vl/users/logout": {
+            "delete": {
+                "description": "logout user"
+            }
+        }
+    }
+}       
